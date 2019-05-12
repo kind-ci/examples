@@ -1,0 +1,24 @@
+sudo: required
+language: go
+go:
+    - "1.12"
+
+services:
+  - docker
+
+install: true
+
+script: 
+  - echo "Run your tests here"
+
+before_install:
+  # Download and install Kind and kubectl
+  - GO111MODULE=on go get sigs.k8s.io/kind
+  - kind create cluster --config kind-config.yaml
+  - export KUBECONFIG="$(kind get kubeconfig-path --name="kind")"
+  - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+  - chmod +x ./kubectl
+  - ./kubectl get nodes -o wide
+  - ./kubectl get pods --all-namespaces -o wide
+  - ./kubectl get services --all-namespaces -o wide
+
