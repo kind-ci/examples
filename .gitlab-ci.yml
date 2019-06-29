@@ -1,7 +1,4 @@
 image: docker:stable
-variables:
-  DOCKER_DRIVER: overlay2
-  DOCKER_HOST: tcp://localhost:2375
 services:
   - docker:dind
 stages:
@@ -15,6 +12,8 @@ test:
     - mv ./kind-linux-amd64 /usr/local/bin/kind
     - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
     - chmod +x ./kubectl
-    - ./kubectl get nodes -o wide
-    - ./kubectl get pods --all-namespaces -o wide
-    - ./kubectl get services --all-namespaces -o wide
+    - kind create cluster
+    - export KUBECONFIG="$(kind get kubeconfig-path --name="kind")"
+    - KUBECONFIG="$(kind get kubeconfig-path --name="kind")" ./kubectl get nodes -o wide
+    - KUBECONFIG="$(kind get kubeconfig-path --name="kind")" ./kubectl get pods --all-namespaces -o wide
+    - KUBECONFIG="$(kind get kubeconfig-path --name="kind")" ./kubectl get services --all-namespaces -o wide
