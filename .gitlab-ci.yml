@@ -1,0 +1,21 @@
+image: docker:stable
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_HOST: tcp://localhost:2375
+  GO111MODULE: "on"
+services:
+  - docker:dind
+stages:
+  - test
+test:
+  stage: test
+  script:
+    - apk add -U curl wget
+    - curl -Lo ./kind-linux-amd64 https://github.com/kubernetes-sigs/kind/releases/download/v0.4.0/kind-linux-amd64
+    - chmod +x ./kind-linux-amd64
+    - mv ./kind-linux-amd64 /usr/local/bin/kind
+    - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+    - chmod +x ./kubectl
+    - ./kubectl get nodes -o wide
+    - ./kubectl get pods --all-namespaces -o wide
+    - ./kubectl get services --all-namespaces -o wide
