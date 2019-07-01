@@ -1,0 +1,60 @@
+---
+kind: pipeline
+name: test
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+  - name: setup
+    image: docker:stable
+    pull: always
+    depends_on: [ clone ]
+    environment:
+      CLUSTER_HOST: docker
+      CLUSTER_NAME: kind-cluster
+      KUBECONFIG: /mnt/config/admin.conf
+    commands:
+      - ./drone/install.sh
+      - ./drone/setup.sh
+      - cp "$(kind get kubeconfig-path --name="$CLUSTER_NAME")" /mnt/config/admin.conf
+      - kubectl get nodes
+    volumes:
+      - name: dockersock
+        path: /var/run
+      - name: kubeconfig
+        path: /mnt/config
+    when:
+      event:
+      - push
+
+  - name: test
+    image: alpine:3.9
+    pull: always
+    depends_on: [ setup ]
+    environment:
+      KUBECONFIG: /mnt/config/admin.conf
+    commands:
+      - ./drone/install.sh
+      - kubectl get nodes
+    volumes:
+      - name: kubeconfig
+        path: /mnt/config
+    when:
+      event:
+      - push
+
+services:
+- name: docker
+  image: docker:dind
+  privileged: true
+  volumes:
+  - name: dockersock
+    path: /var/run
+
+volumes:
+- name: dockersock
+  temp: {}
+- name: kubeconfig
+  temp: {}
