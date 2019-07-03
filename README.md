@@ -14,7 +14,7 @@ Please file Pull Requests and / or Issues for missing CI platforms :smile:
 | [Travis CI](https://travis-ci.com/) | [Yes](.travis.yml) :heavy_check_mark: | [![Travis CI](https://travis-ci.com/kind-ci/examples.svg?branch=master)](https://travis-ci.com/kind-ci/examples/) |
 | [Prow](https://github.com/kubernetes/test-infra/tree/master/prow) | [Yes](https://github.com/kubernetes/test-infra/tree/master/config/jobs/kubernetes-sigs/kind) :heavy_check_mark: | [![Prow](https://prow.k8s.io/badge.svg?jobs=ci-kind-build)](https://prow.k8s.io/?job=ci-kind-build) |
 | [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) | [Yes](azure-pipelines.yml) :heavy_check_mark: | None |
-| [Concourse](https://concourse-ci.org/) | [Yes]((concourse.md)) :heavy_check_mark: | None |
+| [Concourse](https://concourse-ci.org/) | [Yes](concourse.md) :heavy_check_mark: | None |
 | [Drone](https://drone.io/) | [Yes](./drone) :heavy_check_mark: | None |
 | [Gitlab](https://about.gitlab.com/product/continuous-integration/) | [Yes](.gitlab-ci.yml) :heavy_check_mark: | None |
 | [BuildKite](https://buildkite.com/) | Unsure :question: | None |
