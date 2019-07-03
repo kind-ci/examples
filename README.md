@@ -1,18 +1,22 @@
-# examples
+# Examples
 
-Repository providing samples and testing for running sigs.k8s.io/kind on various CI services
+This repository provides samples and testing for running [sigs.k8s.io/kind](https://sigs.k8s.io/kind) on various CI platforms.
 
-## Supported/tested CI systems
+## Supported / Tested CI Platforms
 
-| Has an Example | We Have CI on It | Platform |
-|---|---|---|
-| :heavy_check_mark:| :heavy_check_mark: | [CircleCI](.circleci) (#5)|
-| :heavy_check_mark: | :heavy_check_mark: | [TravisCI](.travis.yml) (#4) |
-| :x: | :x: |  BuildKite |
-| :heavy_check_mark: | :heavy_check_mark: |[Prow](https://github.com/kubernetes/test-infra/tree/master/config/jobs/kubernetes-sigs/kind) |
-| :heavy_check_mark: | :x: | Gitlab |
-| :heavy_check_mark: | :x: | [Concourse](concourse.md) (#8) |
-| :x: | :x: | Drone |
-| :x: | :x: | GCB |
-| :x: | :x: | Codeship [kubernetes-sigs/kind#523](https://github.com/kubernetes-sigs/kind/issues/523)
-| :heavy_check_mark: | :x: | [Azure Pipelines](azure-pipelines.yml) |
+
+For any platform not yet listed or listed as "Unsure :question:" we are looking for your help!
+Please file Pull Requests and / or Issues for missing CI platforms :smile:
+
+| Platform | Known to Work? | Status |
+|---|---|--|
+| [CircleCI](https://circleci.com/) | [Yes](.circleci) :heavy_check_mark: | [![CircleCI](https://circleci.com/gh/kind-ci/examples.svg?style=svg)](https://circleci.com/gh/kind-ci/examples) |
+| [Travis CI](https://travis-ci.com/) | [Yes](.travis.yml) :heavy_check_mark: | [![Travis CI](https://travis-ci.com/kind-ci/examples.svg?branch=master)](https://travis-ci.com/kind-ci/examples/) |
+| [Prow](https://github.com/kubernetes/test-infra/tree/master/prow) | [Yes](https://github.com/kubernetes/test-infra/tree/master/config/jobs/kubernetes-sigs/kind) :heavy_check_mark: | [![Prow](https://prow.k8s.io/badge.svg?jobs=ci-kind-build)](https://prow.k8s.io/?job=ci-kind-build) |
+| [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) | [Yes](azure-pipelines.yml) :heavy_check_mark: | None |
+| [Concourse](https://concourse-ci.org/) | [Yes]((concourse.md)) :heavy_check_mark: | None |
+| [Drone](https://drone.io/) | [Yes](./drone) :heavy_check_mark: | None |
+| [Gitlab](https://about.gitlab.com/product/continuous-integration/) | [Yes](.gitlab-ci.yml) :heavy_check_mark: | None |
+| [BuildKite](https://buildkite.com/) | Unsure :question: | None |
+| [Google Cloud Build](https://cloud.google.com/cloud-build/) | Unsure :question: | None |
+| [CodeShip](https://codeship.com/) | Unsure :question: | None |
