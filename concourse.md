@@ -55,5 +55,5 @@ resources:
 [kind]: //kind.sigs.k8s.io/
 [concourse]: //concourse-ci.org/
 [kind-on-c]: //github.com/pivotal-k8s/kind-on-c
-[ci]: //wings.pivotal.io/teams/k8s-c10s/pipelines/kind
+[ci]: //hush-house.pivotal.io/teams/k8s-c10s/pipelines/kind
 [ci-src]: //github.com/pivotal-k8s/kind-on-c/tree/master/ci/
