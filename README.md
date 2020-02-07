@@ -16,7 +16,7 @@ Please file Pull Requests and / or Issues for missing CI platforms :smile:
 | [Concourse](https://concourse-ci.org/) | [Yes](concourse.md) :heavy_check_mark: | [![Concourse k8s](https://hush-house.pivotal.io/api/v1/teams/k8s-c10s/pipelines/kind/badge)](https://hush-house.pivotal.io/teams/k8s-c10s/pipelines/kind?group=all) |
 | [Github](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/about-continuous-integration) | [Yes](.github/workflows/kind.yml) :heavy_check_mark: | ![Github](https://github.com/kind-ci/examples/workflows/Kind/badge.svg) |
 | [Gitlab](https://about.gitlab.com/product/continuous-integration/) | [Yes](.gitlab-ci.yml) :heavy_check_mark: | ![Gitlab](https://gitlab.com/kind-ci/examples/badges/master/pipeline.svg) |
-| [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) | [Yes](azure-pipelines.yml) :heavy_check_mark: | None |
+| [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) | [Yes](azure-pipelines.yml) :heavy_check_mark: | ![Azure Pipelines](https://dev.azure.com/kind-ci/examples/_apis/build/status/examples?api-version=5.1-preview.1) |
 | [Drone](https://drone.io/) | [Yes](./drone) :heavy_check_mark: | None |
 | [Google Cloud Build](https://cloud.google.com/cloud-build/) | [Yes](./gcb.md) :heavy_check_mark: | None |
 | [BuildKite](https://buildkite.com/) | Unsure :question: | None |
