@@ -1,23 +1,20 @@
 trigger:
-  branches:
-    include:
-      - master
+  - master
 
 pool:
-  vmImage: 'Ubuntu 16.04'
-
-variables:
-  GOPATH: '$(Agent.BuildDirectory)/gopath' # Go workspace path
-  GOBIN:  '$(GOPATH)/bin' # Go binaries path
-  GO111MODULE: 'on' 
-  modulePath: '$(GOPATH)/src/github.com/$(build.repository.name)' # Path to the module's code
+  vmImage: 'Ubuntu 18.04'
 
 steps:
-- script: go get sigs.k8s.io/kind@v0.4.0
+- task: GoTool@0
+  inputs:
+    version: '1.13.7'
+    goBin: '$(Agent.HomeDirectory)/bin'
+
+- script: GO111MODULE="on" go get sigs.k8s.io/kind@v0.7.0
   displayName: 'Install kind'
 
 - script: $(GOBIN)/kind create cluster
   displayName: 'Deploying kind cluster'
 
-- script: export KUBECONFIG="$($(GOBIN)/kind get kubeconfig-path --name="kind")" && kubectl cluster-info
+- script: kubectl cluster-info --context kind-kind
   displayName: 'Show cluster info'
