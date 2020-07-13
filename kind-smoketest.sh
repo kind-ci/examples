@@ -12,6 +12,9 @@ BIN_DIR="$(mktemp -d)"
 # kind binary will be here
 KIND="${BIN_DIR}/kind"
 
+CWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+KIND_CONFIG="${CWD}/kind-config.yaml"
+
 # cleanup on exit (useful for running locally)
 cleanup() {
     "${KIND}" delete cluster || true
@@ -41,7 +44,7 @@ main() {
     # get kind
     install_latest_kind
     # create a cluster
-    "${KIND}" create cluster --loglevel=debug --config kind-config.yaml
+    "${KIND}" create cluster --loglevel=debug --config "${KIND_CONFIG}"
     # set KUBECONFIG to point to the cluster
     KUBECONFIG="$("${KIND}" get kubeconfig-path)"
     export KUBECONFIG
