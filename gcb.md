@@ -16,10 +16,11 @@ and will:
 - start a portforwarder to make the kube-apiserver accessible
 
 There are two things to be configured via `--substitutions`:
-- `KIND_CONFIG`: a [configuration for kind][kind-config] 
+- `KIND_CONFIG`: a [configuration file for kind][kind-config], it must specify an [apiServerPort][api-server-port].
 - `KIND_TESTS`: whatever should be run after the cluster hast been created, `KUBECONFIG` is setup for you
 
 [kind-config]: https://kind.sigs.k8s.io/docs/user/quick-start/#configuring-your-kind-cluster
+[api-server-port]: https://kind.sigs.k8s.io/docs/user/configuration/#api-server
 
 ```yaml
 steps:
@@ -72,7 +73,8 @@ steps:
 
     startForwarder() {
       local port
-      port="$( awk -F: '/server:/{ print $4 }' "$$KUBECONFIG" )"
+      # Gets the apiServerPort from the KUBECONFIG file.
+      port="$( awk -F: '/apiServerPort:/{ print $2 }' "$$KUBECONFIG" )"
       socat \
         TCP-LISTEN:${port},reuseaddr,fork \
         "EXEC:docker run --rm -i --network=host alpine/socat 'STDIO TCP-CONNECT:localhost:${port}'"
