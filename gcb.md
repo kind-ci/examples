@@ -1,5 +1,26 @@
 # `kind` on Google Cloud Build
 
+This is very much a **hack**. Don't use this for real, take inspiration from it
+at max!
+
+The biggest hacks here are:
+- using `awk` to "parse" out the port that exposes the APIServer from an URL in
+  a yaml file
+- the forwarding of the port from the host into the container where `kind` and
+  the actual test is running:
+  - inside the container, where `kind` and the actual test runs, we start a
+    `socat` process which listens on a tcp port
+  - when a connection to that port inside the container is made, we start
+    another container in the host's network namespace. That container is able
+    to connect to the exposed port on the host. Both `socat` processes are
+    connected via their Stdin & Stdout.
+  - we've essentially created a tunnel from within the container to the host
+    for this one port
+  - by default, `kind` exposes the APIServer on localhost (on the host), thus
+    the kubeconfig file will hold something like `https://127.0.0.1:XXX/` as
+    the server URL. Thus if we use the same port inside the container that
+    `kind` has setup on the host, we can just use the same kubeconfig.
+
 ## Example `cloudbuild.yml`
 
 The following cloud build config can be used by running
@@ -15,12 +36,15 @@ and will:
 - run `kind` to create a cluster
 - start a portforwarder to make the kube-apiserver accessible
 
-There are two things to be configured via `--substitutions`:
-- `KIND_CONFIG`: a [configuration file for kind][kind-config], it must specify an [apiServerPort][api-server-port].
-- `KIND_TESTS`: whatever should be run after the cluster hast been created, `KUBECONFIG` is setup for you
+There are two things which can be configured via `--substitutions`, none of
+which is mandatory:
+- `KIND_CONFIG`: a [configuration for kind][kind-config]
+- `KIND_TESTS`: whatever should be run after the cluster hast been created,
+  `KUBECONFIG` is setup for you
+
+Examples on what the substitutions could look like can be found in the following `cloudbuild.yml`.
 
 [kind-config]: https://kind.sigs.k8s.io/docs/user/quick-start/#configuring-your-kind-cluster
-[api-server-port]: https://kind.sigs.k8s.io/docs/user/configuration/#api-server
 
 ```yaml
 steps:
@@ -69,12 +93,14 @@ steps:
 
     kind "$${kindArgs[@]}"
 
-    export KUBECONFIG="$( kind get kubeconfig-path )"
+    KUBECONFIG="$$(mktemp)"
+    kind get kubeconfig > "$$KUBECONFIG"
+    export KUBECONFIG
 
     startForwarder() {
       local port
       # Gets the apiServerPort from the KUBECONFIG file.
-      port="$( awk -F: '/apiServerPort:/{ print $2 }' "$$KUBECONFIG" )"
+      port="$( awk -F: '/server:/{ print $4 }' "$$KUBECONFIG" )"
       socat \
         TCP-LISTEN:${port},reuseaddr,fork \
         "EXEC:docker run --rm -i --network=host alpine/socat 'STDIO TCP-CONNECT:localhost:${port}'"
@@ -84,6 +110,12 @@ steps:
     bash -xeuc "${_KIND_TESTS}"
 
 substitutions:
-  _KIND_TESTS: 'kubectl get nodes -o wide'
-  _KIND_CONFIG: ''
+  _KIND_TESTS: |
+    kubectl get nodes -o wide
+  _KIND_CONFIG: |
+    kind: Cluster
+    apiVersion: kind.x-k8s.io/v1alpha4
+    nodes:
+    - role: control-plane
+    - role: worker
 ```
