@@ -12,7 +12,7 @@ Please file Pull Requests and / or Issues for missing CI platforms :smile:
 |---|---|--|
 | [CircleCI](https://circleci.com/) | [Yes](.circleci) :heavy_check_mark: | [![CircleCI](https://circleci.com/gh/kind-ci/examples.svg?style=svg)](https://circleci.com/gh/kind-ci/examples) |
 | [Travis CI](https://travis-ci.com/) | [Yes](.travis.yml) :heavy_check_mark: | [![Travis CI](https://travis-ci.com/kind-ci/examples.svg?branch=master)](https://travis-ci.com/kind-ci/examples/) |
-| [Prow](https://github.com/kubernetes/test-infra/tree/master/prow) | [Yes](https://github.com/kubernetes/test-infra/tree/master/config/jobs/kubernetes-sigs/kind) :heavy_check_mark: | [![Prow](https://prow.k8s.io/badge.svg?jobs=ci-kind-build)](https://prow.k8s.io/?job=ci-kind-build) |
+| [Prow](https://github.com/kubernetes/test-infra/tree/master/prow) | [Yes](https://github.com/kubernetes/test-infra/tree/master/config/jobs/kubernetes-sigs/kind) :heavy_check_mark: | [![Prow](https://prow.k8s.io/badge.svg?jobs=ci-kubernetes-kind-e2e-parallel)](https://prow.k8s.io/?job=ci-kubernetes-kind-e2e-parallel) |
 | [Concourse](https://concourse-ci.org/) | [Yes](concourse.md) :heavy_check_mark: | [![Concourse k8s](https://hush-house.pivotal.io/api/v1/teams/k8s-c10s/pipelines/kind/badge)](https://hush-house.pivotal.io/teams/k8s-c10s/pipelines/kind?group=all) |
 | [Github](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/about-continuous-integration) | [Yes](.github/workflows/kind.yml) :heavy_check_mark: | ![Github](https://github.com/kind-ci/examples/workflows/Kind/badge.svg) |
 | [Gitlab](https://about.gitlab.com/product/continuous-integration/) | [Yes](.gitlab-ci.yml) :heavy_check_mark: | ![Gitlab](https://gitlab.com/kind-ci/examples/badges/master/pipeline.svg) |
