@@ -18,7 +18,6 @@ steps:
     commands:
       - ./drone/install.sh
       - ./drone/setup.sh
-      - cp "$(kind get kubeconfig-path --name="$CLUSTER_NAME")" /mnt/config/admin.conf
       - kubectl get nodes
     volumes:
       - name: dockersock
@@ -30,7 +29,7 @@ steps:
       - push
 
   - name: test
-    image: alpine:3.9
+    image: alpine:3.14
     pull: always
     depends_on: [ setup ]
     environment:

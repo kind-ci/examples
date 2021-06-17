@@ -5,10 +5,10 @@ set -o nounset;
 # debug commands
 set -x;
 
-KUBECTL=v1.15.0
-KIND=v0.4.0
+KUBECTL=v1.21.0
+KIND=v0.11.0
 
-install(){  
+install(){
   wget -O /usr/local/bin/$1 $2
   chmod +x /usr/local/bin/$1
 }
