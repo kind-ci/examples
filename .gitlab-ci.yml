@@ -1,9 +1,10 @@
 image: docker:stable
 variables:
-  KUBECTL: v1.17.0
-  KIND: v0.8.1
+  KUBECTL: v1.25.1
+  KIND: v0.15.0
 services:
-  - docker:dind
+  - name: docker:dind
+    alias: kubernetes
 stages:
   - test
 test:
@@ -15,7 +16,7 @@ test:
     - wget -O /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/${KUBECTL}/bin/linux/amd64/kubectl
     - chmod +x /usr/local/bin/kubectl
     - kind create cluster --config=./gitlab/kind-config.yaml
-    - sed -i -E -e 's/localhost|0\.0\.0\.0/docker/g' "$HOME/.kube/config"
+    - sed -i -E -e 's/localhost|0\.0\.0\.0/kubernetes/g' "$HOME/.kube/config"
     - kubectl get nodes -o wide
     - kubectl get pods --all-namespaces -o wide
     - kubectl get services --all-namespaces -o wide
