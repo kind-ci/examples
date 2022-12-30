@@ -19,5 +19,6 @@ Please file Pull Requests and / or Issues for missing CI platforms :smile:
 | [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) | [Yes](azure-pipelines.yml) :heavy_check_mark: | ![Azure Pipelines](https://dev.azure.com/kind-ci/examples/_apis/build/status/examples?api-version=5.1-preview.1) |
 | [Drone](https://drone.io/) | [Yes](./drone) :heavy_check_mark: | None |
 | [Google Cloud Build](https://cloud.google.com/cloud-build/) | [Yes](./gcb.md) :heavy_check_mark: | None |
+| [AWS Codebuild](https://aws.amazon.com/codebuild/) | [Yes](./codebuild.md) :heavy_check_mark: | None |
 | [BuildKite](https://buildkite.com/) | Unsure :question: | None |
 | [CodeShip](https://codeship.com/) | Unsure :question: | None |
